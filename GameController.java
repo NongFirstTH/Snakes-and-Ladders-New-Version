@@ -1,10 +1,10 @@
 public class GameController {
-    private final GameConfig config;
-    private final GameState state;
+    private final GameConfig gameConfig;
+    private final GameState gameState;
 
-    GameController(GameConfig config, GameState state) {
-        this.config = config;
-        this.state = state;
+    GameController(GameConfig gameConfig, GameState gameState) {
+        this.gameConfig = gameConfig;
+        this.gameState = gameState;
     }
 
     private boolean isPlayerAtSnakeHead() {
@@ -20,9 +20,9 @@ public class GameController {
     }
 
     public void play() {
-        Board board = config.getBoard();
-        Dice dice = config.getDice();
-        Player player = state.getPlayer();
+        Board board = gameConfig.getBoard();
+        Dice dice = gameConfig.getDice();
+        Player player = gameState.getPlayer();
 
         do {
             int step = dice.roll();
