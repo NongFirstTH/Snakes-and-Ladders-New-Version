@@ -1,13 +1,15 @@
+import java.util.Map;
+
 public class GameLogic {
-    public boolean isPlayerAtSnakeHead(Player player, Snake[] snakes) {
-        return false;
+    public boolean isPlayerAtSnakeHead(int playerPosition, Map<Integer, Snake> snakes) {
+        return snakes.containsKey(playerPosition);
     }
 
-    public boolean isPlayerAtLadderBottom(Player player, Ladder[] ladders) {
-        return false;
+    public boolean isPlayerAtLadderBottom(int playerPosition, Map<Integer, Ladder> ladders) {
+        return ladders.containsKey(playerPosition);
     }
 
-    public boolean isGameEnded(Player player, int destination) {
-        return true;
+    public boolean isGameEnded(int playerPosition, int destination) {
+        return playerPosition >= destination;
     }
 }

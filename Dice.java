@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Dice {
     private final int numberOfFaces;
 
@@ -6,6 +8,9 @@ public class Dice {
     }
 
     public int roll() {
-        return 0;
+        Random random = new Random();
+        int diceResult = random.nextInt(numberOfFaces) + 1;
+
+        return diceResult;
     }
 }

@@ -1,5 +1,5 @@
 public class Player {
-    private int position;
+    private int position = 1;
     
     public void setPosition(int position) {
         this.position = position;

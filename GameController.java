@@ -13,24 +13,33 @@ public class GameController {
         Board board = gameConfig.getBoard();
         Dice dice = gameConfig.getDice();
         Player player = gameState.getCurrentPlayer();
+        int playerPosition = 1;
 
         do {
             int step = dice.roll();
-            int playerPosition = player.getPosition();
-
-            player.setPosition(playerPosition + step);
-
-            if (gameLogic.isPlayerAtSnakeHead(player, board.getSnakes())) {
-                int tail = board.getSnakeTail(player.getPosition());
-
-                player.setPosition(tail);
-            } else if (gameLogic.isPlayerAtLadderBottom(player, board.getLadders())) {
-                int top = board.getLadderTop(player.getPosition());
-
-                player.setPosition(top);
+            System.out.println("------------------------------------");
+            System.out.println("current position : " + playerPosition);
+            
+            playerPosition = player.getPosition() + step;
+        
+            System.out.println("roll result : " + step);
+            
+            player.setPosition(playerPosition);
+            
+            if (gameLogic.isPlayerAtSnakeHead(playerPosition, board.getSnakes())) {
+                playerPosition = board.getSnakeTail(playerPosition);
+                
+                player.setPosition(playerPosition);
+            } else if (gameLogic.isPlayerAtLadderBottom(playerPosition, board.getLadders())) {
+                playerPosition = board.getLadderTop(playerPosition);
+                
+                player.setPosition(playerPosition);
             }
+            
+            System.out.println("player position : " + playerPosition);
+            System.out.println("------------------------------------");
 
             gameState.nextTurn();
-        } while (!gameLogic.isGameEnded(player, board.getDestination()));
+        } while (!gameLogic.isGameEnded(playerPosition, board.getDestination()));
     }
 }
