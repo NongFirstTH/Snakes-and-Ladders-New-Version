@@ -20,4 +20,13 @@ public class GameState {
     public void nextTurn() {
         turn++;
     }
+
+    public void printGameState() {
+        System.out.println("------------------------------------");
+        System.out.println("Turn : " + turn);
+
+        for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
+            System.out.println("Player" + (playerIndex + 1) + "'s position : " + getCurrentPlayer().getPosition());
+        }
+    }
 }

@@ -16,26 +16,24 @@ public class GameController {
         int playerPosition = 1;
 
         do {
+            gameState.printGameState();
+            
             int step = dice.roll();
-            System.out.println("------------------------------------");
-            System.out.println("current position : " + playerPosition);
-            
             playerPosition = player.getPosition() + step;
-        
-            System.out.println("roll result : " + step);
-            
             player.setPosition(playerPosition);
-            
+
+            System.out.println("roll result : " + step);
+
             if (gameLogic.isPlayerAtSnakeHead(playerPosition, board.getSnakes())) {
                 playerPosition = board.getSnakeTail(playerPosition);
-                
+
                 player.setPosition(playerPosition);
             } else if (gameLogic.isPlayerAtLadderBottom(playerPosition, board.getLadders())) {
                 playerPosition = board.getLadderTop(playerPosition);
-                
+
                 player.setPosition(playerPosition);
             }
-            
+
             System.out.println("player position : " + playerPosition);
             System.out.println("------------------------------------");
 
