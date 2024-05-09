@@ -1,17 +1,19 @@
-public class Snake {
-    private final int head;
-    private final int tail;
+public class Snake implements Teleporter {
+  private int head;
+  private int tail;
 
-    public Snake(int head, int tail) {
-        this.head = head;
-        this.tail = tail;
-    }
+  Snake(int head, int tail) {
+    this.head = head;
+    this.tail = tail;
+  }
 
-    public int getHead() {
-        return head;
-    }
+  @Override
+  public int getSource() {
+    return head;
+  }
 
-    public int getTail() {
-        return tail;
-    }
+  @Override
+  public int getDestination() {
+    return tail;
+  }
 }

@@ -1,8 +1,13 @@
 public class Player {
     private int position = 1;
-    
-    public void setPosition(int position) {
-        this.position = position;
+    private final String name;
+
+    Player(String name) {
+        this.name = name;
+    }
+
+    public void setPosition(int newPosition) {
+        position = newPosition;
     }
 
     public int getPosition() {

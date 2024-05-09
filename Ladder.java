@@ -1,4 +1,4 @@
-public class Ladder {
+public class Ladder implements Teleporter {
     private final int bottom;
     private final int top;
 
@@ -7,11 +7,13 @@ public class Ladder {
         this.top = top;
     }
 
-    public int getBottom() {
+    @Override
+    public int getSource() {
         return bottom;
     }
 
-    public int getTop() {
+    @Override
+    public int getDestination() {
         return top;
     }
 }
