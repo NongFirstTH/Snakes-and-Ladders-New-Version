@@ -1,9 +1,9 @@
-public class SnakesAndLaddersGameController {
+public class SnakesLaddersGameController {
     Player[] players;
     Dice dice;
     Board board;
 
-    SnakesAndLaddersGameController(Player[] players) {
+    SnakesLaddersGameController(Player[] players) {
         this.players = players;
         dice = new Dice(6);
         board = new Board();
@@ -13,8 +13,8 @@ public class SnakesAndLaddersGameController {
         return dice.roll();
     }
 
-    public boolean isGameEnded(int playerPosition, int destination) {
-        return playerPosition >= destination;
+    public boolean isGameEnded(int playerPosition, int goal) {
+        return playerPosition >= goal;
     }
 
     private int getNextPlayerIndex(int previousIndex) {

@@ -5,6 +5,7 @@ public class Main {
 
     public static int askNumberOfPlayer() {
         System.out.print("Enter number of players: ");
+
         int numberOfPlayer = scanner.nextInt();
         scanner.nextLine();
 
@@ -12,34 +13,31 @@ public class Main {
     }
 
     public static String[] askNameOfPlayer(int numberOfPlayer) {
-        String[] playersNames = new String[numberOfPlayer];
+        String[] playersName = new String[numberOfPlayer];
 
         for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
             System.out.printf("Player %d: ", playerIndex + 1);
-            playersNames[playerIndex] = scanner.nextLine();
+            playersName[playerIndex] = scanner.nextLine();
         }
-        
-        return playersNames;
+
+        return playersName;
     }
 
-    
-    public static Player[] createPlayer(String[] playerNames) {
-        int numberOfPlayer = playerNames.length;
+    public static Player[] createPlayer(String[] playersName) {
+        int numberOfPlayer = playersName.length;
         Player[] players = new Player[numberOfPlayer];
 
-        for (int playerIndex = 0; playerIndex < playerNames.length; playerIndex++) {
-            players[playerIndex] = new Player(playerNames[playerIndex]);
+        for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
+            players[playerIndex] = new Player(playersName[playerIndex]);
         }
-     
+
         return players;
     }
 
-    public static String askIsYouWantPlayAgain() {
-        String answer;
-
+    public static String askIfWantToPlayAgain() {
         System.out.print("Do you want to play again? (yes/no) ");
 
-        answer = scanner.nextLine();
+        String answer = scanner.nextLine();
 
         return answer;
     }
@@ -47,13 +45,14 @@ public class Main {
     public static boolean isPlayerPlayAgain(String answer) {
         return answer.equalsIgnoreCase("yes");
     }
+
     public static void main(String[] args) {
         do {
             Player[] players = createPlayer(askNameOfPlayer(askNumberOfPlayer()));
-            SnakesAndLaddersGameController controller = new SnakesAndLaddersGameController(players);
-        
-            controller.play(); 
+            SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(players);
 
-        } while (isPlayerPlayAgain(askIsYouWantPlayAgain()));
+            snakesLaddersGameController.play();
+
+        } while (isPlayerPlayAgain(askIfWantToPlayAgain()));
     }
 }
