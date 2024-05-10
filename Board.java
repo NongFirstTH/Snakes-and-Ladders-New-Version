@@ -1,12 +1,18 @@
 public class Board {
-    private final int goal = 100;
-    private final Cell[] cells = new Cell[goal];
+    private int goal;
+    private final Cell[] cells;
 
     public Board() {
-        for (int cellIndex = 0; cellIndex < goal; cellIndex++) {
+        int numberOfCells = 100;
+
+        cells = new Cell[numberOfCells];
+
+        for (int cellIndex = 0; cellIndex < numberOfCells; cellIndex++) {
             cells[cellIndex] = new Cell();
         }
-
+    
+        goal = numberOfCells;
+    
         setLadders();
         setSnakes();
     }

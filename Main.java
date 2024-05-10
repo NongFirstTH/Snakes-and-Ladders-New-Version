@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
+    public static Player[] players;
 
-    public static int askNumberOfPlayer() {
+    public static int askNumberOfPlayers() {
         System.out.print("Enter number of players: ");
 
         int numberOfPlayer = scanner.nextInt();
@@ -12,7 +13,7 @@ public class Main {
         return numberOfPlayer;
     }
 
-    public static String[] askNameOfPlayer(int numberOfPlayer) {
+    public static String[] askNameOfPlayers(int numberOfPlayer) {
         String[] playersName = new String[numberOfPlayer];
 
         for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
@@ -23,7 +24,7 @@ public class Main {
         return playersName;
     }
 
-    public static Player[] createPlayer(String[] playersName) {
+    public static Player[] createPlayers(String[] playersName) {
         int numberOfPlayer = playersName.length;
         Player[] players = new Player[numberOfPlayer];
 
@@ -42,17 +43,24 @@ public class Main {
         return answer;
     }
 
-    public static boolean isPlayerPlayAgain(String answer) {
-        return answer.equalsIgnoreCase("yes");
+    public static boolean isPlayAgain() {
+        return askIfWantToPlayAgain().equalsIgnoreCase("yes");
+    }
+
+    public static void setupPlayersBeforePlayGame() {
+        players = createPlayers(askNameOfPlayers(askNumberOfPlayers()));
+    }
+
+    public static void playGame() {
+        SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(players);
+
+        snakesLaddersGameController.play();
     }
 
     public static void main(String[] args) {
         do {
-            Player[] players = createPlayer(askNameOfPlayer(askNumberOfPlayer()));
-            SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(players);
-
-            snakesLaddersGameController.play();
-
-        } while (isPlayerPlayAgain(askIfWantToPlayAgain()));
+            setupPlayersBeforePlayGame();
+            playGame();
+        } while (isPlayAgain());
     }
 }
