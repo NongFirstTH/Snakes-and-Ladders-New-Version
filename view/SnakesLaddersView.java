@@ -1,6 +1,6 @@
 package view;
-import java.util.Scanner;
 
+import java.util.Scanner;
 import models.GameState;
 import models.Player;
 
@@ -45,12 +45,8 @@ public class SnakesLaddersView {
         System.out.println("-------------------------------------------------");
     }
 
-    public void printCurrentPlayerName(Player currentPlayer) {
-        System.out.print(currentPlayer.getName());
-    }
-
-    public void recieveEnterFromCurrentPlayer() {
-        System.out.print(" press enter to roll a dice: ");
+    public void recieveEnterFromCurrentPlayer(Player currentPlayer) {
+        System.out.print(currentPlayer.getName() + " press enter to roll a dice: ");
 
         scanner.nextLine();
     }

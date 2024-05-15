@@ -1,4 +1,5 @@
 package models;
+
 public class Board {
     private int numberOfCells;
     private final Cell[] cells;

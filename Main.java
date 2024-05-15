@@ -1,7 +1,5 @@
-
 import java.util.LinkedList;
 import java.util.Queue;
-
 import controller.SnakesLaddersGameController;
 import models.Player;
 import view.SnakesLaddersView;

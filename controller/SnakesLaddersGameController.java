@@ -1,6 +1,6 @@
 package controller;
-import java.util.Queue;
 
+import java.util.Queue;
 import models.Board;
 import models.Dice;
 import models.GameState;
@@ -39,8 +39,7 @@ public class SnakesLaddersGameController {
     private GameState playRound(GameState gameState) {
         Player currentPlayer = gameState.getCurrentPlayer();
 
-        snakesLaddersView.printCurrentPlayerName(currentPlayer);
-        snakesLaddersView.recieveEnterFromCurrentPlayer();
+        snakesLaddersView.recieveEnterFromCurrentPlayer(currentPlayer);
 
         int diceResult = rollDice();
         int newPlayerPosition = calculateNewPlayerPosition(currentPlayer.getPosition(), diceResult);

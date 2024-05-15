@@ -1,4 +1,5 @@
 package models;
+
 public class Player {
     private int position = 1;
     private final String name;
