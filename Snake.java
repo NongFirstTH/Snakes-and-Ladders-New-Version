@@ -1,6 +1,6 @@
 public class Snake implements Teleporter {
-  private int head;
-  private int tail;
+  private final int head;
+  private final int tail;
 
   Snake(int head, int tail) {
     this.head = head;

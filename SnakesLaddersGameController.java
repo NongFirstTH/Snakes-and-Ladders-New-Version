@@ -1,35 +1,50 @@
 public class SnakesLaddersGameController {
-    Player[] players;
-    Dice dice;
-    Board board;
+    private final Player[] players;
+    private final Dice dice;
+    private final Board board;
 
     SnakesLaddersGameController(Player[] players) {
         this.players = players;
         dice = new Dice(6);
         board = new Board();
     }
-    
-    public int rollDice() {
-        return dice.roll();
+
+    public void play() {
+        int currentPlayerIndex = 0;
+        Player currentPlayer = players[currentPlayerIndex];
+
+        while (true) {
+            playRound(currentPlayer);
+            
+            if (isGameEnded(currentPlayer.getPosition())) {
+                break;
+            }
+            
+            currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
+            currentPlayer = players[currentPlayerIndex];
+        }
     }
 
-    public boolean isGameEnded(int playerPosition, int goal) {
-        return playerPosition >= goal;
+    private void playRound(Player currentPlayer) {
+        int step = rollDice();
+        int newPlayerPosition = calculateNewPlayerPosition(currentPlayer.getPosition(), step);
+
+        currentPlayer.setPosition(newPlayerPosition);
+    }
+    
+    private boolean isGameEnded(int playerPosition) {
+        return playerPosition >= board.getGoal();
+    }
+
+    private int rollDice() {
+        return dice.roll();
     }
 
     private int getNextPlayerIndex(int previousIndex) {
         return (previousIndex + 1) % players.length;
     }
 
-    public boolean isPlayerAtTeleporterCell(int playerPosition) {
-        return board.isTeleporterCell(playerPosition);
-    }
-
-    public int getTeleportDestination(int playerPosition) {
-        return board.getTeleportDestination(playerPosition);
-    }
-
-    public int calculatePlayerNewPosition(int currentPosition, int step) {
+    private int calculateNewPlayerPosition(int currentPosition, int step) {
         int newPlayerPosition = currentPosition + step;
 
         if (isPlayerAtTeleporterCell(newPlayerPosition)) {
@@ -39,23 +54,11 @@ public class SnakesLaddersGameController {
         return newPlayerPosition;
     }
 
-    public void play() {
-        int currentPlayerIndex = 0;
-        Player currentPlayer = players[currentPlayerIndex];
-        boolean isGameEnded = false;
-
-        while (!isGameEnded) {
-            playRound(currentPlayer);
-
-            isGameEnded = isGameEnded(currentPlayer.getPosition(), board.getGoal());
-            currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
-            currentPlayer = players[currentPlayerIndex];
-        }
+    private boolean isPlayerAtTeleporterCell(int playerPosition) {
+        return board.isTeleporterCell(playerPosition);
     }
 
-    public void playRound(Player currentPlayer) {
-        int step = rollDice();
-
-        currentPlayer.setPosition(calculatePlayerNewPosition(currentPlayer.getPosition(), step));
+    private int getTeleportDestination(int playerPosition) {
+        return board.getTeleportDestination(playerPosition);
     }
 }

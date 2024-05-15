@@ -1,9 +1,9 @@
 public class Board {
-    private int goal;
+    private int numberOfCells;
     private final Cell[] cells;
 
     public Board() {
-        int numberOfCells = 100;
+        numberOfCells = 100;
 
         cells = new Cell[numberOfCells];
 
@@ -11,18 +11,16 @@ public class Board {
             cells[cellIndex] = new Cell();
         }
     
-        goal = numberOfCells;
-    
         setLadders();
         setSnakes();
     }
 
     public int getGoal() {
-        return goal;
+        return numberOfCells;
     }
 
     public boolean isTeleporterCell(int cellPosition) {
-        if (cellPosition >= goal) {
+        if (cellPosition >= numberOfCells) {
             return false;
         }
 
@@ -37,7 +35,7 @@ public class Board {
         return cells[cellIndex].getTeleportDestination();
     }
 
-    public void setLadders() {
+    private void setLadders() {
         Teleporter ladder1 = new Ladder(2, 39);
         Teleporter ladder2 = new Ladder(6, 14);
         Teleporter ladder3 = new Ladder(28, 53);
@@ -51,7 +49,7 @@ public class Board {
         cells[ladder5.getSource() - 1].setTeleporter(ladder5);
     }
 
-    public void setSnakes() {
+    private void setSnakes() {
         Teleporter snake1 = new Snake(23, 3);
         Teleporter snake2 = new Snake(46, 26);
         Teleporter snake3 = new Snake(59, 43);
