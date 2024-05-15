@@ -1,8 +1,9 @@
+package models;
 public class Player {
     private int position = 1;
     private final String name;
 
-    Player(String name) {
+    public Player(String name) {
         this.name = name;
     }
 
@@ -12,5 +13,9 @@ public class Player {
 
     public int getPosition() {
         return position;
+    }
+
+    public String getName() {
+        return name;
     }
 }

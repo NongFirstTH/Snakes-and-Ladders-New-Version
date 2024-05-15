@@ -1,3 +1,4 @@
+package models;
 public class Ladder implements Teleporter {
     private final int bottom;
     private final int top;

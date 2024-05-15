@@ -1,66 +1,43 @@
-import java.util.Scanner;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import controller.SnakesLaddersGameController;
+import models.Player;
+import view.SnakesLaddersView;
 
 public class Main {
-    public static Scanner scanner = new Scanner(System.in);
-    public static Player[] players;
+    static SnakesLaddersView snakesLaddersView = new SnakesLaddersView();
 
-    public static int askNumberOfPlayers() {
-        System.out.print("Enter number of players: ");
+    public static Queue<Player> createPlayersQueue(String[] playersNames) {
+        Queue<Player> playersQueue = new LinkedList<>();
 
-        int numberOfPlayer = scanner.nextInt();
-        scanner.nextLine();
-
-        return numberOfPlayer;
-    }
-
-    public static String[] askNameOfPlayers(int numberOfPlayer) {
-        String[] playersName = new String[numberOfPlayer];
-
-        for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
-            System.out.printf("Player %d: ", playerIndex + 1);
-            playersName[playerIndex] = scanner.nextLine();
+        for (String playersName : playersNames) {
+            playersQueue.add(new Player(playersName));
         }
 
-        return playersName;
-    }
-
-    public static Player[] createPlayers(String[] playersName) {
-        int numberOfPlayer = playersName.length;
-        Player[] players = new Player[numberOfPlayer];
-
-        for (int playerIndex = 0; playerIndex < numberOfPlayer; playerIndex++) {
-            players[playerIndex] = new Player(playersName[playerIndex]);
-        }
-
-        return players;
-    }
-
-    public static String askIfWantToPlayAgain() {
-        System.out.print("Do you want to play again? (yes/no) ");
-
-        String answer = scanner.nextLine();
-
-        return answer;
+        return playersQueue;
     }
 
     public static boolean isPlayAgain() {
-        return askIfWantToPlayAgain().equalsIgnoreCase("yes");
+        return snakesLaddersView.askIfWantToPlayAgain().equalsIgnoreCase("yes");
     }
 
-    public static void setupPlayersBeforePlayGame() {
-        players = createPlayers(askNameOfPlayers(askNumberOfPlayers()));
+    public static Queue<Player> setupPlayersBeforePlayGame() {
+        return createPlayersQueue(
+                snakesLaddersView.askNameOfPlayers(
+                        snakesLaddersView.askNumberOfPlayers()));
     }
 
-    public static void playGame() {
-        SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(players);
+    public static void playGame(Queue<Player> players) {
+        SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(snakesLaddersView);
 
-        snakesLaddersGameController.play();
+        snakesLaddersGameController.play(players);
     }
 
     public static void main(String[] args) {
         do {
-            setupPlayersBeforePlayGame();
-            playGame();
+            playGame(setupPlayersBeforePlayGame());
         } while (isPlayAgain());
     }
 }

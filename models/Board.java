@@ -1,3 +1,4 @@
+package models;
 public class Board {
     private int numberOfCells;
     private final Cell[] cells;
@@ -10,7 +11,7 @@ public class Board {
         for (int cellIndex = 0; cellIndex < numberOfCells; cellIndex++) {
             cells[cellIndex] = new Cell();
         }
-    
+
         setLadders();
         setSnakes();
     }

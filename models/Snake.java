@@ -1,3 +1,4 @@
+package models;
 public class Snake implements Teleporter {
   private final int head;
   private final int tail;

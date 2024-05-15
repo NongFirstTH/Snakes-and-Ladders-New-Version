@@ -1,3 +1,4 @@
+package models;
 public class Cell {
     private Teleporter teleporter;
 
