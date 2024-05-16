@@ -1,11 +1,39 @@
 import java.util.LinkedList;
 import java.util.Queue;
-import controller.SnakesLaddersGameController;
+
 import models.Player;
-import view.SnakesLaddersView;
+import models.SnakesLaddersGameLogic;
+import view.AfterPlayerGameUI;
+import view.BeforePlayGameUI;
+import view.WhilePlayGameUI;
 
 public class Main {
-    static SnakesLaddersView snakesLaddersView = new SnakesLaddersView();
+    static BeforePlayGameUI beforePlayGameUI = new BeforePlayGameUI();
+    static WhilePlayGameUI whilePlayGameUI = new WhilePlayGameUI();
+    static AfterPlayerGameUI afterPlayerGameUI = new AfterPlayerGameUI();
+
+    public static void main(String[] args) {
+        do {
+            playGame(setupPlayersBeforePlayGame());
+        } while (isPlayAgain());
+    }
+
+    public static Queue<Player> setupPlayersBeforePlayGame() {
+        return createPlayersQueue(
+                beforePlayGameUI.askNameOfPlayers(
+                        beforePlayGameUI.askNumberOfPlayers()));
+    }
+
+    public static void playGame(Queue<Player> players) {
+        SnakesLaddersGameLogic snakesLaddersGameController = new SnakesLaddersGameLogic(whilePlayGameUI);
+
+        afterPlayerGameUI.printWinner(
+            snakesLaddersGameController.playUntilGetWinner(players));
+    }
+
+    public static boolean isPlayAgain() {
+        return afterPlayerGameUI.askIfWantToPlayAgain().equalsIgnoreCase("yes");
+    }
 
     public static Queue<Player> createPlayersQueue(String[] playersNames) {
         Queue<Player> playersQueue = new LinkedList<>();
@@ -15,27 +43,5 @@ public class Main {
         }
 
         return playersQueue;
-    }
-
-    public static boolean isPlayAgain() {
-        return snakesLaddersView.askIfWantToPlayAgain().equalsIgnoreCase("yes");
-    }
-
-    public static Queue<Player> setupPlayersBeforePlayGame() {
-        return createPlayersQueue(
-                snakesLaddersView.askNameOfPlayers(
-                        snakesLaddersView.askNumberOfPlayers()));
-    }
-
-    public static void playGame(Queue<Player> players) {
-        SnakesLaddersGameController snakesLaddersGameController = new SnakesLaddersGameController(snakesLaddersView);
-
-        snakesLaddersGameController.play(players);
-    }
-
-    public static void main(String[] args) {
-        do {
-            playGame(setupPlayersBeforePlayGame());
-        } while (isPlayAgain());
     }
 }

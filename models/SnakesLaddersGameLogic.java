@@ -1,30 +1,26 @@
-package controller;
+package models;
 
 import java.util.Queue;
-import models.Board;
-import models.Dice;
-import models.GameState;
-import models.Player;
-import view.SnakesLaddersView;
+import view.WhilePlayGameUI;
 
-public class SnakesLaddersGameController {
+public class SnakesLaddersGameLogic {
     private final Dice dice;
     private final Board board;
-    private final SnakesLaddersView snakesLaddersView;
+    private final WhilePlayGameUI whilePlayGameUI;
 
-    public SnakesLaddersGameController(SnakesLaddersView snakesLaddersView) {
-        this.snakesLaddersView = snakesLaddersView;
+    public SnakesLaddersGameLogic(WhilePlayGameUI whilePlayGameUI) {
+        this.whilePlayGameUI = whilePlayGameUI;
         dice = new Dice(6);
         board = new Board();
     }
 
-    public void play(Queue<Player> players) {
+    public Player playUntilGetWinner(Queue<Player> players) {
         GameState gameState = new GameState(players, 0);
 
         while (true) {
             Player currentPlayer = gameState.getCurrentPlayer();
 
-            snakesLaddersView.printGameState(playRound(gameState));
+            whilePlayGameUI.printGameState(playRound(gameState));
 
             if (isGameEnded(currentPlayer.getPosition())) {
                 break;
@@ -33,13 +29,13 @@ public class SnakesLaddersGameController {
             changeTurn(gameState);
         }
 
-        snakesLaddersView.printWinner(gameState.getCurrentPlayer());
+        return gameState.getCurrentPlayer();
     }
 
     private GameState playRound(GameState gameState) {
         Player currentPlayer = gameState.getCurrentPlayer();
 
-        snakesLaddersView.recieveEnterFromCurrentPlayer(currentPlayer);
+        whilePlayGameUI.recieveEnterFromCurrentPlayer(currentPlayer);
 
         int diceResult = rollDice();
         int newPlayerPosition = calculateNewPlayerPosition(currentPlayer.getPosition(), diceResult);
